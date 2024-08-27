@@ -1,0 +1,74 @@
+///TEXT_ENTERED_EVENT
+case sf::Event::TextEntered:
+    if(evnt.text.unicode < 128)
+    	printf("%c",evnt.text.unicode);*/
+
+///MOUSE_IS_PRESSED
+if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	player.setPosition((float)mousePos.x, (float)mousePos.y);
+}
+
+///KEYBOARD_INPUT
+if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+{
+	player.move(0.1f,0.0f);
+}
+
+///CLEAR-DRAW-DISPLAY
+window.clear();
+window.draw(player);
+window.display();
+
+///RENDER_WINDOW
+sf::RenderWindow window(sf::VideoMode(812,812), "SFML TUTORIAL", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
+
+///RECTANGLE_SHAPE
+sf::RectangleShape player(sf::Vector2f(100.0f,100.0f));
+    player.setFillColor(sf::Color::Red);
+    player.setOrigin(50.0f, 50.0f);
+
+///CLOSE_EVENT
+sf::Event evnt;
+while(window.pollEvent(evnt))
+{
+	switch(evnt.type)
+	{
+	case sf::Event::Closed:
+		window.close();
+		break;
+	}
+}
+
+///TEXTURE
+Texture playerTexture;
+playerTexture.loadFromFile("penguin.png");
+player.setTexture(&playerTexture);
+
+//TEXTURE_COORDINATING
+Vector2u textureSize = playerTexture.getSize();
+textureSize.x /= *row*;
+textureSize.y /= *column*;
+
+player.setTextureRect(IntRect(textureSize.x * *selectedImageTopLeftRow* , textureSize.y * *selectedImageTopLeftColumn*, textureSize.x, textureSize.y));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

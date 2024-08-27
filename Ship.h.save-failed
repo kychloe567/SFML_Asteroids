@@ -1,0 +1,98 @@
+#pragma once
+
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+using namespace std;
+using namespace sf;
+
+class Ship
+{
+public:
+    ///OBJECT CONSTRUCTION
+    Ship(Vector2f newPos)
+    {
+        ship.setPointCount(3);
+
+        ship.setPoint(0, sf::Vector2f(0, 0));
+        ship.setPoint(1, sf::Vector2f(-15, 40));
+        ship.setPoint(2, sf::Vector2f(15, 40));
+
+        ship.setOrigin(0,20);
+
+        ship.setFillColor(Color::Black);
+        ship.setOutlineThickness(1);
+        ship.setOutlineColor(Color::White);
+
+        ship.setPosition(newPos);
+
+    }
+
+    ///FUNCTION SET POS AND GET POS
+    void setPos(Vector2f newPos)
+    {
+        ship.setPosition(newPos);
+    }
+    Vector2f getPos()
+    {
+        Vector2f getPos(ship.getPosition().x,ship.getPosition().y);
+        return getPos;
+    }
+
+    ///FUNCTION SET VELO X AND GET VELO X
+    void setVeloX(int newVeloX)
+    {
+        veloX = newVeloX;
+    }
+    int getVeloX()
+    {
+        return veloX;
+    }
+
+    ///FUNCTION SET VELO Y AND GET VELO Y
+    void setVeloY(int newVeloY)
+    {
+        veloY = newVeloY;
+    }
+    int getVeloY()
+    {
+        return veloY;
+    }
+
+    ///FUNCTION SET MOVE
+    void setMove(Vector2f newMove)
+    {
+        ship.move(newMove);
+    }
+
+    ///FUNCTION SET HEADING AND GET HEADING
+    void setHeading(float newHeading)
+    {
+        heading = newHeading;
+        ship.rotate(heading);
+    }
+    float getHeading()
+    {
+        return heading;
+    }
+
+    ///FUNCTION DRAW
+    void drawTo(RenderWindow &window)
+    {
+        window.draw(ship);
+    }
+
+    ///FUNCTION UPDATE
+    void Update()
+    {
+        this->setPos({this->getPos().x + veloX,this->getPos().y + veloY});
+    }
+private:
+    ConvexShape ship;
+
+    float veloX = 0;
+    float veloY = 0;
+
+    float heading = 0;
+
+};

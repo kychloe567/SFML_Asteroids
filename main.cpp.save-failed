@@ -1,0 +1,58 @@
+#include <iostream>
+#include <windows.h>
+#include <cstdlib>
+#include <ctime>
+#include <SFML/Graphics.hpp>
+
+#include "Ship.h"
+
+using namespace std;
+using namespace sf;
+
+//int screen_width = VideoMode::getDesktopMode().width;
+//int screen_height = VideoMode::getDesktopMode().height;
+
+int screen_width = 1024;
+int screen_height = 512;
+
+
+int main()
+{
+    RenderWindow window(VideoMode(screen_width,screen_height), "Asteroids",Style::Close | Style::Titlebar);
+    window.setFramerateLimit(60);
+
+    Ship ship({screen_width/2,screen_height/2});
+
+    srand((unsigned)time(0));
+    window.clear();
+
+    while(window.isOpen())
+    {
+        Event evnt;
+        while(window.pollEvent(evnt))
+        {
+            switch(evnt.type)
+            {
+            case Event::Closed:
+                window.close();
+                break;
+            }
+        }
+
+        if(Keyboard::isKeyPressed(Keyboard::A))
+        {
+            ship.setHeading(-5);
+        }
+        if(Keyboard::isKeyPressed(Keyboard::D))
+        {
+            ship.setHeading(5);
+        }
+
+
+        window.clear();
+        ship.drawTo(window);
+        window.display();
+
+    }
+    return 0;
+}
